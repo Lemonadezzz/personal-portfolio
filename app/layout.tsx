@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 export const metadata = {
   title: "Adrian's Portfolio",
   description: "Personal portfolio website showcasing my projects and skills as a full-stack web developer.",
+  icons: "/favicon.ico"
 }
 
 export default function RootLayout({
