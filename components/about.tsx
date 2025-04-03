@@ -28,8 +28,8 @@ export default function About() {
           <div>
             <h3 className="text-2xl font-bold mb-4">Web Developer based in Baguio City, Philippines</h3>
             <p className="text-muted-foreground mb-6">
-              I'm a passionate web developer with 2 years of experience creating modern, responsive web applications. I
-              specialize in React, Svelte, Next.js, Laravel, and I'm dedicated to writing clean, efficient, and reusable code that
+              I&apos;m a passionate web developer with 2 years of experience creating modern, responsive web applications. I
+              specialize in React, Svelte, Next.js, Laravel, and I&apos;m dedicated to writing clean, efficient, and reusable code that
               delivers both exceptional user and developer experiences.
             </p>
 
@@ -76,7 +76,7 @@ export default function About() {
             </div>
 
             <Button asChild>
-              <a href="#contact">Let's Work Together</a>
+              <a href="#contact">Let&apos;s Work Together</a>
             </Button>
           </div>
         </div>
