@@ -16,7 +16,7 @@ export default function About() {
             <div className="relative">
               <div className="aspect-square rounded-2xl overflow-hidden border-4 border-primary/20">
                 <img
-                  src="/placeholder.svg?height=600&width=600"
+                  src="/picture1.svg?height=600&width=600"
                   alt="Adrian Ramirez"
                   className="object-cover w-full h-full"
                 />
@@ -59,9 +59,7 @@ export default function About() {
                   <GraduationCap className="h-10 w-10 text-primary" />
                   <div>
                     <h4 className="font-bold">Education</h4>
-                    <p className="text-sm text-muted-foreground">B.S. Information Technology <br />
-                    <b>@STI College Baguio</b>
-                    </p>
+                    <p className="text-sm text-muted-foreground">B.S. Information Technology<br/><b>@STI College Baguio</b></p>
                   </div>
                 </CardContent>
               </Card>

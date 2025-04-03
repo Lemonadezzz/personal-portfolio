@@ -14,7 +14,7 @@ export default function Projects() {
       title: "Sample Project 1",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      image: "/placeholder.svg?height=600&width=800",
+      image: "/project1.svg?height=600&width=800",
       category: "fullstack",
       technologies: ["React", "Laravel", "MySQL", "Docker"],
       githubUrl: "https://github.com",
@@ -24,7 +24,7 @@ export default function Projects() {
       id: 2,
       title: "Sample Project 2",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      image: "/placeholder.svg?height=600&width=800",
+      image: "/project2.svg?height=600&width=800",
       category: "frontend",
       technologies: ["Svelte", "Go", "PostgreSQL"],
       githubUrl: "https://github.com",
@@ -34,7 +34,7 @@ export default function Projects() {
       id: 3,
       title: "Sample Project 3",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      image: "/placeholder.svg?height=600&width=800",
+      image: "/project3.svg?height=600&width=800",
       category: "fullstack",
       technologies: ["Vue", "Laravel", "MariaDB", "Docker"],
       githubUrl: "https://github.com",
@@ -81,7 +81,7 @@ export default function Projects() {
             <Card key={project.id} className="overflow-hidden group">
               <div className="relative overflow-hidden aspect-video">
                 <img
-                  src={project.image || "/placeholder.svg"}
+                  src={project.image || "/project1.svg"}
                   alt={project.title}
                   className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                 />
