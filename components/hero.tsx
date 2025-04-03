@@ -14,7 +14,7 @@ export default function Hero() {
     let i = 0;
 
     const typingInterval = setInterval(() => {
-      setTypedText((prev) => fullText.slice(0, i + 1));
+      setTypedText(() => fullText.slice(0, i + 1));
       i++;
 
       if (i >= fullText.length) {

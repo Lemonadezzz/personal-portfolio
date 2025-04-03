@@ -4,6 +4,8 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Github, ExternalLink } from "lucide-react"
+import Image from "next/image";
+
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState("all")
@@ -80,9 +82,11 @@ export default function Projects() {
           {filteredProjects.map((project) => (
             <Card key={project.id} className="overflow-hidden group">
               <div className="relative overflow-hidden aspect-video">
-                <img
+                <Image
                   src={project.image || "/project1.svg"}
                   alt={project.title}
+                  width={600}
+                  height={600}
                   className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">

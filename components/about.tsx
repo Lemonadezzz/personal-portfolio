@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Code, Briefcase, GraduationCap } from "lucide-react"
+import Image from "next/image";
 
 export default function About() {
   return (
@@ -15,9 +16,11 @@ export default function About() {
           <div>
             <div className="relative">
               <div className="aspect-square rounded-2xl overflow-hidden border-4 border-primary/20">
-                <img
+                <Image
                   src="/picture1.svg?height=600&width=600"
                   alt="Adrian Ramirez"
+                  width={600}
+                  height={600}
                   className="object-cover w-full h-full"
                 />
               </div>
