@@ -9,8 +9,8 @@ export default function Skills() {
           <h2 className="text-3xl font-bold mb-4">My Skills</h2>
           <div className="h-1 w-20 bg-primary mx-auto mb-6"></div>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            I've worked with a variety of technologies in the web development world. Here are some of the tools and
-            technologies I'm proficient with.
+            I&aposve worked with a variety of technologies in the web development world. Here are some of the tools and
+            technologies I&aposm proficient with.
           </p>
         </div>
 
