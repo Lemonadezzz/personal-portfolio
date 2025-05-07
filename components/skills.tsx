@@ -1,81 +1,54 @@
-import { Card, CardContent } from "@/components/ui/card"
+"use client"
+import Image from "next/image"
 
 export default function Skills() {
-  const skillCategories = [
-    {
-      title: "Frontend",
-      skills: [
-        { name: "HTML5", level: 90 },
-        { name: "CSS3/SCSS", level: 85 },
-        { name: "JavaScript", level: 90 },
-        { name: "TypeScript", level: 85 },
-        { name: "React", level: 90 },
-        { name: "Next.js", level: 85 },
-        { name: "Tailwind CSS", level: 80 },
-      ],
-    },
-    {
-      title: "Backend",
-      skills: [
-        { name: "Node.js", level: 85 },
-        { name: "Express", level: 80 },
-        { name: "MongoDB", level: 75 },
-        { name: "PostgreSQL", level: 70 },
-        { name: "REST API", level: 85 },
-        { name: "GraphQL", level: 70 },
-      ],
-    },
-    {
-      title: "Tools & Others",
-      skills: [
-        { name: "Git/GitHub", level: 85 },
-        { name: "Docker", level: 70 },
-        { name: "AWS", level: 65 },
-        { name: "CI/CD", level: 75 },
-        { name: "Jest", level: 75 },
-        { name: "Figma", level: 70 },
-      ],
-    },
-  ]
-
   return (
-    <section id="skills" className="py-20">
+    <section id="skills" className="py-20 overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold mb-4">My Skills</h2>
           <div className="h-1 w-20 bg-primary mx-auto mb-6"></div>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            I&apos;ve worked with a variety of technologies in the web development world. Here&apos;s an overview of my technical
-            skills and proficiency levels.
+            I've worked with a variety of technologies in the web development world. Here are some of the tools and
+            technologies I'm proficient with.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {skillCategories.map((category, index) => (
-            <Card key={index} className="overflow-hidden">
-              <div className="bg-primary/20 p-4">
-                <h3 className="text-xl font-bold text-center">{category.title}</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-4xl mx-auto">
+          {[
+            { name: "Laravel", icon: "/icons/laravel.png" },
+            { name: "React", icon: "/icons/react.png" },
+            { name: "Next.js", icon: "/icons/nextjs.png" },
+            { name: "Tailwind CSS", icon: "/icons/tailwind.png" },
+            { name: "Node.js", icon: "/icons/nodejs.png" },
+            { name: "MongoDB", icon: "/icons/mongodb.png" },
+            { name: "Material UI", icon: "/icons/material.png" },
+            { name: "Git", icon: "/icons/git.png" },
+            { name: "Figma", icon: "/icons/figma.png" },
+            { name: "Postman", icon: "/icons/postman.png" },
+          ].map((skill, index) => (
+            <div
+              key={index}
+              className="bg-secondary hover:bg-secondary/80 border border-border rounded-lg p-4 flex flex-col items-center justify-center transition-transform hover:scale-105 hover:shadow-md"
+            >
+              <div className="w-12 h-12 mb-3 flex items-center justify-center">
+                <Image
+                  src={skill.icon || "/placeholder.svg"}
+                  alt={`${skill.name} icon`}
+                  width={48}
+                  height={48}
+                  className="max-w-full max-h-full"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement
+                    target.src = `/placeholder.svg?height=48&width=48`
+                  }}
+                />
               </div>
-              <CardContent className="p-6">
-                <div className="space-y-6">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div key={skillIndex}>
-                      <div className="flex justify-between mb-2">
-                        <span className="font-medium">{skill.name}</span>
-                        <span className="text-muted-foreground">{skill.level}%</span>
-                      </div>
-                      <div className="w-full bg-muted rounded-full h-2.5">
-                        <div className="bg-primary h-2.5 rounded-full" style={{ width: `${skill.level}%` }}></div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+              <div className="font-medium text-foreground text-sm">{skill.name}</div>
+            </div>
           ))}
         </div>
       </div>
     </section>
   )
 }
-
