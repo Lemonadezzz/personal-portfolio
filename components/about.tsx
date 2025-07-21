@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Briefcase, GraduationCap, Heading1 } from "lucide-react";
 import Image from "next/image";
 
 export default function About() {
