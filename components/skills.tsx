@@ -18,14 +18,9 @@ export default function Skills() {
           {[
             { name: "Laravel", icon: "/icons/laravel.png" },
             { name: "React", icon: "/icons/react.png" },
-            { name: "Next.js", icon: "/icons/nextjs.png" },
-            { name: "Tailwind CSS", icon: "/icons/tailwind.png" },
-            { name: "Node.js", icon: "/icons/nodejs.png" },
-            { name: "MongoDB", icon: "/icons/mongodb.png" },
+            { name: "Inertia", icon: "/icons/inertia.png" },
             { name: "Material UI", icon: "/icons/material.png" },
             { name: "Git", icon: "/icons/git.png" },
-            { name: "Figma", icon: "/icons/figma.png" },
-            { name: "Postman", icon: "/icons/postman.png" },
           ].map((skill, index) => (
             <div
               key={index}

@@ -124,7 +124,7 @@ export default function Projects() {
 
         <div className="text-center mt-12">
           <Button asChild variant="outline" size="lg">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/Lemonadezzz" target="_blank" rel="noopener noreferrer">
               View More on GitHub
             </a>
           </Button>
