@@ -7,23 +7,42 @@ import Navbar from "./navbar"
 
 export default function Hero() {
   const [typedText, setTypedText] = useState("")
-  const fullText = "Web Developer"
+  const [isErasing, setIsErasing] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  
+  const titles = ["IT Specialist", "Freelance Web Developer", "Aspiring Cloud Engineer" ]
 
   useEffect(() => {
-    setTypedText("");
-    let i = 0;
+    const currentTitle = titles[currentIndex]
+    let timeout: NodeJS.Timeout
 
-    const typingInterval = setInterval(() => {
-      setTypedText(() => fullText.slice(0, i + 1));
-      i++;
-
-      if (i >= fullText.length) {
-        clearInterval(typingInterval);
+    if (!isErasing) {
+      // Typing phase
+      if (typedText.length < currentTitle.length) {
+        timeout = setTimeout(() => {
+          setTypedText(currentTitle.slice(0, typedText.length + 1))
+        }, 100)
+      } else {
+        // Finished typing, wait before erasing
+        timeout = setTimeout(() => {
+          setIsErasing(true)
+        }, 2000)
       }
-    }, 100);
+    } else {
+      // Erasing phase
+      if (typedText.length > 0) {
+        timeout = setTimeout(() => {
+          setTypedText(typedText.slice(0, -1))
+        }, 50)
+      } else {
+        // Finished erasing, move to next title
+        setIsErasing(false)
+        setCurrentIndex((prev) => (prev + 1) % titles.length)
+      }
+    }
 
-    return () => clearInterval(typingInterval)
-  }, [])
+    return () => clearTimeout(timeout)
+  }, [typedText, isErasing, currentIndex])
 
   return (
     <section id="home" className="relative min-h-screen flex flex-col justify-center">
@@ -31,7 +50,7 @@ export default function Hero() {
       <div className="container mx-auto px-4 pt-20 flex flex-col items-center text-center">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Hi, I&apos;m <span className="text-primary">Adrian Ramirez</span>
+            Hi, I'm <span className="text-primary">Adrian Ramirez</span>
           </h1>
           <h2 className="text-2xl md:text-3xl font-medium mb-6 h-8">
             {typedText}
@@ -47,7 +66,7 @@ export default function Hero() {
               <a href="#projects">View My Work</a>
             </Button>
             <Button asChild variant="outline" size="lg">
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" download>
                 Download Resume
               </a>
             </Button>
@@ -60,7 +79,12 @@ export default function Hero() {
               </a>
             </Button>
             <Button variant="ghost" size="icon" asChild>
-              <a href="https://linkedin.com/in/ramirezadrianfrancis" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <a
+                href="https://linkedin.com/in/ramirezadrianfrancis"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
                 <Linkedin className="h-6 w-6" />
               </a>
             </Button>
@@ -83,4 +107,3 @@ export default function Hero() {
     </section>
   )
 }
-

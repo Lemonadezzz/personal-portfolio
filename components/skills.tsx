@@ -6,7 +6,7 @@ export default function Skills() {
     <section id="skills" className="py-20 overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4">My Skills</h2>
+          <h2 className="text-3xl font-bold mb-4">My Stack</h2>
           <div className="h-1 w-20 bg-primary mx-auto mb-6"></div>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             I&apos;ve worked with a variety of technologies in the web development world. Here are some of the tools and
@@ -20,7 +20,7 @@ export default function Skills() {
             { name: "React", icon: "/icons/react.png" },
             { name: "Inertia", icon: "/icons/inertia.png" },
             { name: "Material UI", icon: "/icons/material.png" },
-            { name: "Git", icon: "/icons/git.png" },
+            { name: "Google Cloud", icon: "/icons/gcloud.png" },
           ].map((skill, index) => (
             <div
               key={index}

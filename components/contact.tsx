@@ -36,56 +36,56 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <Card>
+        <div className="flex flex-col md:flex-row gap-8 max-w-5xl mx-auto">
+          <Card className="w-full md:w-auto">
             <CardContent className="p-6 flex flex-col gap-6">
-              <div className="flex items-center gap-4">
-                <div className="bg-primary/10 p-3 rounded-full">
+              <div className="flex items-start gap-4">
+                <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
-                <div>
+                <div className="flex-1 overflow-hidden">
                   <h3 className="font-bold">Email</h3>
                   <a
-                    href="mailto:ramirezadrianfrancis@gmail.com"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    href="mailto:hello@example.com"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm block overflow-wrap break-word"
                   >
                     ramirezadrianfrancis@gmail.com
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="bg-primary/10 p-3 rounded-full">
+              <div className="flex items-start gap-4">
+                <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
                   <Phone className="h-6 w-6 text-primary" />
                 </div>
-                <div>
+                <div className="flex-1 overflow-hidden">
                   <h3 className="font-bold">Phone</h3>
-                  <a href="tel:+1234567890" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="tel:+1234567890" className="text-muted-foreground hover:text-primary transition-colors text-sm block overflow-wrap break-word">
                     (+63) 966 368 9364
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="bg-primary/10 p-3 rounded-full">
+              <div className="flex items-start gap-4">
+                <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
                   <MapPin className="h-6 w-6 text-primary" />
                 </div>
-                <div>
+                <div className="flex-1 overflow-hidden">
                   <h3 className="font-bold">Location</h3>
-                  <p className="text-muted-foreground">Baguio City, Philippines</p>
+                  <p className="text-muted-foreground text-sm overflow-wrap break-word">Baguio City, Philippines</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="md:col-span-2">
+          <Card className="flex-1">
             <CardContent className="p-6">
               {isSubmitted ? (
                 <div className="flex flex-col items-center justify-center h-full py-12 text-center">
                   <CheckCircle className="h-16 w-16 text-green-500 mb-4" />
                   <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
                   <p className="text-muted-foreground mb-6">
-                    Thank you for reaching out. I&apos;ll get back to you as soon as possible.
+                    Thank you for reaching out. I'll get back to you as soon as possible.
                   </p>
                   <Button onClick={() => setIsSubmitted(false)}>Send Another Message</Button>
                 </div>
@@ -161,4 +161,3 @@ export default function Contact() {
     </section>
   )
 }
-
