@@ -134,7 +134,7 @@ export default function About() {
             </div>
 
             <Button asChild>
-              <a href="#contact">Let's Work Together</a>
+              <a href="#contact">Let&apos;s Work Together</a>
             </Button>
           </div>
         </div>

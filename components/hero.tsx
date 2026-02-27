@@ -42,7 +42,7 @@ export default function Hero() {
     }
 
     return () => clearTimeout(timeout)
-  }, [typedText, isErasing, currentIndex])
+  }, [typedText, isErasing, currentIndex, titles])
 
   return (
     <section id="home" className="relative min-h-screen flex flex-col justify-center">
@@ -50,7 +50,7 @@ export default function Hero() {
       <div className="container mx-auto px-4 pt-20 flex flex-col items-center text-center">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Hi, I'm <span className="text-primary">Adrian Ramirez</span>
+            Hi, I&apos;m <span className="text-primary">Adrian Ramirez</span>
           </h1>
           <h2 className="text-2xl md:text-3xl font-medium mb-6 h-8">
             {typedText}
