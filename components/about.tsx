@@ -47,7 +47,7 @@ export default function About() {
       school: "STI College Baguio",
       degree: "BS Information Technology",
       duration: "Jul 2019 - Jul 2023",
-      description: "Maintained a consistent position on the Dean's List and demonstrated exceptional proficiency in both SQL and NoSQL databases.",
+      description: "Maintained a consistent position on the Dean&apos;s List and demonstrated exceptional proficiency in both SQL and NoSQL databases.",
       logo: "/icons/sti.png"
     }
   ]
