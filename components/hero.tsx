@@ -10,7 +10,7 @@ export default function Hero() {
   const [isErasing, setIsErasing] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   
-  const titles = ["IT Specialist", "Freelance Web Developer", "Aspiring Cloud Engineer" ]
+  const titles = ["Full Stack Developer", "Aspiring Cloud Engineer" ]
 
   useEffect(() => {
     const currentTitle = titles[currentIndex]

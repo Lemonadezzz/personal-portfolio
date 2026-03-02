@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 
 interface JobExperience {
@@ -21,16 +20,16 @@ export default function About() {
   const experiences: JobExperience[] = [
     {
       company: "Target Display Co., Inc.",
-      position: "IT Specialist",
+      position: "Full Stack Developer",
       duration: "Sept 2023 - Present",
-      description: "Developed and maintained responsive web applications using React and Next.js. Collaborated with cross-functional teams to deliver high-quality solutions.",
+      description: "Architected and developed enterprise-grade internal applications using Laravel and React (MUI) to replace legacy Excel-based workflows.",
       logo: "/icons/tdci.png"
     },
     {
       company: "Freelance",
-      position: "Web Developer / Project Manager",
+      position: "Web Developer",
       duration: "Jun 2023 - Nov 2024",
-      description: "Building custom web solutions for clients. Specializing in full-stack development with React, Next.js, and Node.js.",
+      description: "Built custom web solutions for clients. Specializing in full-stack development with Next.js, and MongoDB",
       logo: "/icons/code.png"
     },
     {
@@ -53,89 +52,74 @@ export default function About() {
   ]
 
   return (
-    <section id="about" className="py-20 bg-secondary/50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4">About Me</h2>
+    <section id="about" className="py-12 bg-secondary/50">
+      <div className="container mx-auto px-4 max-w-3xl">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold mb-3">About Me</h2>
           <div className="h-1 w-20 bg-primary mx-auto"></div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="space-y-8">
           <div>
-            <div className="relative">
-              <div className="aspect-square rounded-2xl overflow-hidden border-4 border-primary/20">
-                <img
-                  src="/placeholder.svg?height=600&width=600"
-                  alt="Adrian Ramirez "
-                  className="object-cover w-full h-full"
-                />
-              </div>
-              <div className="absolute -bottom-6 -right-6 bg-primary/10 w-full h-full rounded-2xl -z-10"></div>
-            </div>
-          </div>
-
-          <div> 
-            <h4 className="font-bold text-lg mb-4">Education</h4>
-            <div className="space-y-4 mb-8">
-              {education.map((edu, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-5">
-                    <div className="flex gap-4 items-center">
-                      <div className="flex-shrink-0">
-                        <img
-                          src={edu.logo}
-                          alt={edu.school}
-                          className="h-12 w-12 rounded-lg object-cover bg-background"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <h5 className="font-bold">{edu.degree}</h5>
-                            <p className="text-sm text-primary font-semibold">{edu.school}</p>
-                          </div>
-                          <span className="text-xs text-muted-foreground whitespace-nowrap ml-2">{edu.duration}</span>
-                        </div>
-                        <p className="text-sm text-muted-foreground mt-2">{edu.description}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <h4 className="font-bold text-lg mb-4">Work Experience</h4>
-            <div className="space-y-4 mb-8">
+            <h3 className="text-xl font-bold mb-4 text-center">Dev Experience</h3>
+            <div className="space-y-3">
               {experiences.map((exp, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-5">
-                    <div className="flex gap-4 items-center">
+                  <CardContent className="p-4">
+                    <div className="flex gap-3 items-center">
                       <div className="flex-shrink-0">
                         <img
                           src={exp.logo}
                           alt={exp.company}
-                          className="h-12 w-12 rounded-lg object-cover bg-background"
+                          className="h-10 w-10 rounded-lg object-cover bg-background"
                         />
                       </div>
                       <div className="flex-1">
-                        <div className="flex justify-between items-start">
+                        <div className="flex justify-between items-start gap-2">
                           <div>
-                            <h5 className="font-bold">{exp.position}</h5>
-                            <p className="text-sm text-primary font-semibold">{exp.company}</p>
+                            <h5 className="font-bold text-sm">{exp.position}</h5>
+                            <p className="text-xs text-primary font-semibold">{exp.company}</p>
                           </div>
-                          <span className="text-xs text-muted-foreground whitespace-nowrap ml-2">{exp.duration}</span>
+                          <span className="text-xs text-muted-foreground whitespace-nowrap flex-shrink-0">{exp.duration}</span>
                         </div>
-                        <p className="text-sm text-muted-foreground mt-2">{exp.description}</p>
+                        <p className="text-xs text-muted-foreground mt-1">{exp.description}</p>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
               ))}
             </div>
+          </div>
 
-            <Button asChild>
-              <a href="#contact">Let&apos;s Work Together</a>
-            </Button>
+          <div>
+            <h3 className="text-xl font-bold mb-4 text-center">Education</h3>
+            <div className="space-y-3">
+              {education.map((edu, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-4">
+                    <div className="flex gap-3 items-center">
+                      <div className="flex-shrink-0">
+                        <img
+                          src={edu.logo}
+                          alt={edu.school}
+                          className="h-10 w-10 rounded-lg object-cover bg-background"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start gap-2">
+                          <div>
+                            <h5 className="font-bold text-sm">{edu.degree}</h5>
+                            <p className="text-xs text-primary font-semibold">{edu.school}</p>
+                          </div>
+                          <span className="text-xs text-muted-foreground whitespace-nowrap flex-shrink-0">{edu.duration}</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-1">{edu.description}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </div>
