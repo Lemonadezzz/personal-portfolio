@@ -70,18 +70,18 @@ export default function About() {
   const experiences: JobExperience[] = [
     {
       company: "Target Display Co., Inc.",
-      position: "IT Specialist",
+      position: "Full Stack Developer",
       duration: "Sept 2023 – Present",
       description:
-        "Developed and maintained responsive web applications using React and Next.js. Collaborated with cross-functional teams to deliver high-quality solutions.",
+        "Identified systemic inefficiencies in legacy Excel-based workflows to architect and develop custom, full-stack internal applications using Laravel, React, and MUI.",
       logo: "/icons/tdci.png",
     },
     {
       company: "Freelance",
-      position: "Web Developer / Project Manager",
+      position: "Web Developer",
       duration: "Jun 2023 – Nov 2024",
       description:
-        "Built custom web solutions for clients, specializing in full-stack development with React, Next.js, and Node.js.",
+        "Built custom web solutions for clients, specializing in full-stack development with Next.js and MongoDB.",
       logo: "/icons/code.png",
     },
     {
@@ -89,7 +89,7 @@ export default function About() {
       position: "Web Developer Internship",
       duration: "Mar 2023 – May 2023",
       description:
-        "Developed and maintained responsive web applications using React and Next.js. Collaborated with cross-functional teams to deliver high-quality solutions.",
+        "Developed and maintained web applications using Laravel, React, and MUI. Collaborated with cross-functional teams to deliver high-quality solutions.",
       logo: "/icons/nms.png",
     },
   ]
@@ -150,7 +150,7 @@ export default function About() {
             bioVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          I&apos;m an IT Specialist and web developer based in the Philippines with a passion for building
+          I&apos;m a Developer based in the Philippines with a passion for building
           clean, performant digital products. I bridge the gap between technical infrastructure and
           modern frontend development — always looking to grow toward cloud engineering.
         </p>

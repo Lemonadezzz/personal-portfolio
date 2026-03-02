@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
 import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react"
 import Navbar from "./navbar"
 
@@ -11,7 +10,7 @@ export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [mounted, setMounted] = useState(false)
 
-  const titles = ["IT Specialist", "Freelance Web Developer", "Aspiring Cloud Engineer"]
+  const titles = ["Full Stack Developer", "Aspiring Cloud Engineer"]
 
   useEffect(() => {
     setMounted(true)

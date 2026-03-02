@@ -76,7 +76,7 @@ export default function Projects() {
             <div className="flex items-center gap-3 mb-3">
               <span className="inline-block h-[2px] w-10 rounded-full bg-primary" />
               <span className="text-primary text-xs font-semibold tracking-widest uppercase">
-                What I've Built
+                What I&apos;ve Built
               </span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-5">
