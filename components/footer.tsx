@@ -1,12 +1,25 @@
+"use client"
+
 import Link from "next/link"
 import { Github, Linkedin, Twitter } from "lucide-react"
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.3 })
 
   return (
-    <footer className="bg-secondary py-12">
-      <div className="container mx-auto px-4">
+    <footer className="relative bg-secondary py-12 overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 left-1/4 h-32 w-32 rounded-full bg-primary/5 blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 h-40 w-40 rounded-full bg-primary/5 blur-3xl" />
+      
+      <div 
+        ref={ref}
+        className={`container mx-auto px-4 transition-all duration-700 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-6 md:mb-0">
             <Link href="#home" className="text-xl font-bold">

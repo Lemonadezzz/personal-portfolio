@@ -9,33 +9,34 @@ export default function Hero() {
   const [typedText, setTypedText] = useState("")
   const [isErasing, setIsErasing] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
-  
-  const titles = ["Full Stack Developer", "Aspiring Cloud Engineer" ]
+  const [mounted, setMounted] = useState(false)
+
+  const titles = ["IT Specialist", "Freelance Web Developer", "Aspiring Cloud Engineer"]
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     const currentTitle = titles[currentIndex]
     let timeout: NodeJS.Timeout
 
     if (!isErasing) {
-      // Typing phase
       if (typedText.length < currentTitle.length) {
         timeout = setTimeout(() => {
           setTypedText(currentTitle.slice(0, typedText.length + 1))
         }, 100)
       } else {
-        // Finished typing, wait before erasing
         timeout = setTimeout(() => {
           setIsErasing(true)
         }, 2000)
       }
     } else {
-      // Erasing phase
       if (typedText.length > 0) {
         timeout = setTimeout(() => {
           setTypedText(typedText.slice(0, -1))
         }, 50)
       } else {
-        // Finished erasing, move to next title
         setIsErasing(false)
         setCurrentIndex((prev) => (prev + 1) % titles.length)
       }
@@ -45,65 +46,275 @@ export default function Hero() {
   }, [typedText, isErasing, currentIndex, titles])
 
   return (
-    <section id="home" className="relative min-h-screen flex flex-col justify-center">
+    <section
+      id="home"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-background"
+    >
+      {/* Enhanced background accent — large faded red orb top-right with animation */}
+      <div
+        className="animate-pulse-gentle"
+        style={{
+          position: "absolute",
+          top: "-10%",
+          right: "-5%",
+          width: "600px",
+          height: "600px",
+          background: "radial-gradient(circle, rgba(220,53,69,0.10) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+      {/* Bottom-left subtle orb with float animation */}
+      <div
+        className="animate-float"
+        style={{
+          position: "absolute",
+          bottom: "10%",
+          left: "-5%",
+          width: "400px",
+          height: "400px",
+          background: "radial-gradient(circle, rgba(220,53,69,0.06) 0%, transparent 80%)",
+          pointerEvents: "none",
+          animationDelay: '1s',
+        }}
+      />
+      
+      {/* Animated grid pattern */}
+      <div className="absolute top-20 left-20 pointer-events-none opacity-[0.08]">
+        <div className="grid grid-cols-6 gap-4">
+          {Array.from({ length: 36 }).map((_, i) => (
+            <div 
+              key={i} 
+              className="h-1 w-1 rounded-full bg-primary animate-pulse-gentle"
+              style={{ animationDelay: `${i * 50}ms` }}
+            />
+          ))}
+        </div>
+      </div>
+      
+      {/* Floating decorative shapes */}
+      <div 
+        className="absolute top-1/3 right-1/4 h-2 w-2 rounded-full bg-primary/20 animate-float"
+        style={{ animationDelay: '0.5s' }}
+      />
+      <div 
+        className="absolute top-2/3 right-1/3 h-3 w-3 rounded-full bg-primary/15 animate-float"
+        style={{ animationDelay: '1.5s' }}
+      />
+      <div 
+        className="absolute top-1/2 left-1/4 h-2 w-2 rounded-full bg-primary/20 animate-float"
+        style={{ animationDelay: '2s' }}
+      />
+
       <Navbar />
-      <div className="container mx-auto px-4 pt-20 flex flex-col items-center text-center">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Hi, I&apos;m <span className="text-primary">Adrian Ramirez</span>
+
+      <div className="container mx-auto px-6 md:px-16 pt-24 flex items-center min-h-screen">
+        <div
+          className="max-w-2xl"
+          style={{
+            opacity: mounted ? 1 : 0,
+            transform: mounted ? "translateY(0)" : "translateY(24px)",
+            transition: "opacity 0.7s ease, transform 0.7s ease",
+          }}
+        >
+          {/* Eyebrow label */}
+          <div
+            className="flex items-center gap-3 mb-6"
+            style={{ opacity: mounted ? 1 : 0, transition: "opacity 0.7s ease 0.1s" }}
+          >
+            <span
+              style={{
+                display: "inline-block",
+                width: "40px",
+                height: "2px",
+                background: "#dc3545",
+                borderRadius: "2px",
+              }}
+            />
+            <span style={{ color: "#dc3545", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase" }}>
+              Portfolio
+            </span>
+          </div>
+
+          {/* Main heading */}
+          <h1
+            className="font-bold mb-4 text-foreground"
+            style={{
+              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+              lineHeight: 1.1,
+              opacity: mounted ? 1 : 0,
+              transition: "opacity 0.7s ease 0.2s",
+            }}
+          >
+            Hi, I&apos;m{" "}
+            <span style={{ color: "#dc3545" }}>Adrian<br />Ramirez</span>
           </h1>
-          <h2 className="text-2xl md:text-3xl font-medium mb-6 h-8">
+
+          {/* Typed subtitle */}
+          <h2
+            className="font-medium mb-6 text-muted-foreground"
+            style={{
+              fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
+              minHeight: "2rem",
+              opacity: mounted ? 1 : 0,
+              transition: "opacity 0.7s ease 0.3s",
+            }}
+          >
             {typedText}
-            <span className="animate-blink">|</span>
+            <span
+              style={{
+                display: "inline-block",
+                width: "2px",
+                height: "1.2em",
+                background: "#dc3545",
+                marginLeft: "2px",
+                verticalAlign: "middle",
+                animation: "blink 1s step-end infinite",
+              }}
+            />
           </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            I build responsive, user-friendly web applications with modern technologies. Passionate about creating
-            seamless digital experiences.
+
+          {/* Description */}
+          <p
+            className="mb-10 text-muted-foreground"
+            style={{
+              fontSize: "1rem",
+              lineHeight: 1.75,
+              maxWidth: "480px",
+              opacity: mounted ? 1 : 0,
+              transition: "opacity 0.7s ease 0.4s",
+            }}
+          >
+            I build responsive, user-friendly web applications with modern technologies.
+            Passionate about creating seamless digital experiences.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button asChild size="lg">
-              <a href="#projects">View My Work</a>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" download>
-                Download Resume
-              </a>
-            </Button>
+          {/* CTA Buttons */}
+          <div
+            className="flex flex-wrap gap-4 mb-10"
+            style={{ opacity: mounted ? 1 : 0, transition: "opacity 0.7s ease 0.5s" }}
+          >
+            <a
+              href="#projects"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "12px 28px",
+                background: "#dc3545",
+                color: "#fff",
+                fontWeight: 600,
+                fontSize: "0.95rem",
+                borderRadius: "6px",
+                textDecoration: "none",
+                transition: "background 0.2s ease, transform 0.2s ease",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.background = "#b02a37"
+                ;(e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.background = "#dc3545"
+                ;(e.currentTarget as HTMLElement).style.transform = "translateY(0)"
+              }}
+            >
+              View My Work
+            </a>
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+              className="text-foreground"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "12px 28px",
+                background: "transparent",
+                fontWeight: 600,
+                fontSize: "0.95rem",
+                borderRadius: "6px",
+                textDecoration: "none",
+                border: "1.5px solid hsl(var(--border))",
+                transition: "border-color 0.2s ease, transform 0.2s ease",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.borderColor = "#dc3545"
+                ;(e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.borderColor = "hsl(var(--border))"
+                ;(e.currentTarget as HTMLElement).style.transform = "translateY(0)"
+              }}
+            >
+              Download Resume
+            </a>
           </div>
 
-          <div className="flex justify-center space-x-6 mb-12">
-            <Button variant="ghost" size="icon" asChild>
-              <a href="https://github.com/Lemonadezzz" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <Github className="h-6 w-6" />
-              </a>
-            </Button>
-            <Button variant="ghost" size="icon" asChild>
+          {/* Social icons */}
+          <div
+            className="flex items-center gap-5"
+            style={{ opacity: mounted ? 1 : 0, transition: "opacity 0.7s ease 0.6s" }}
+          >
+            {[
+              { href: "https://github.com/Lemonadezzz", label: "GitHub", icon: <Github className="h-5 w-5" /> },
+              { href: "https://linkedin.com/in/ramirezadrianfrancis", label: "LinkedIn", icon: <Linkedin className="h-5 w-5" /> },
+              { href: "https://x.com/lemonaidssssss", label: "Twitter", icon: <Twitter className="h-5 w-5" /> },
+            ].map(({ href, label, icon }) => (
               <a
-                href="https://linkedin.com/in/ramirezadrianfrancis"
+                key={label}
+                href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="LinkedIn"
+                aria-label={label}
+                className="text-muted-foreground"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "8px",
+                  border: "1.5px solid hsl(var(--border))",
+                  transition: "color 0.2s ease, border-color 0.2s ease",
+                  textDecoration: "none",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.color = "#dc3545"
+                  ;(e.currentTarget as HTMLElement).style.borderColor = "rgba(220,53,69,0.4)"
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.color = "hsl(var(--muted-foreground))"
+                  ;(e.currentTarget as HTMLElement).style.borderColor = "hsl(var(--border))"
+                }}
               >
-                <Linkedin className="h-6 w-6" />
+                {icon}
               </a>
-            </Button>
-            <Button variant="ghost" size="icon" asChild>
-              <a href="https://x.com/lemonaidssssss" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                <Twitter className="h-6 w-6" />
-              </a>
-            </Button>
+            ))}
           </div>
         </div>
-
-        <a
-          href="#about"
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
-          aria-label="Scroll down"
-        >
-          <ArrowDown className="h-8 w-8" />
-        </a>
       </div>
+
+      {/* Scroll down arrow */}
+      <a
+        href="#about"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-muted-foreground"
+        aria-label="Scroll down"
+        style={{ animation: "bounce 2s infinite" }}
+      >
+        <ArrowDown className="h-6 w-6" />
+      </a>
+
+      <style jsx>{`
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        @keyframes bounce {
+          0%, 100% { transform: translateX(-50%) translateY(0); }
+          50% { transform: translateX(-50%) translateY(8px); }
+        }
+      `}</style>
     </section>
   )
 }

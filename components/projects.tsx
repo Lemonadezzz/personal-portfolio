@@ -4,11 +4,14 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Github, ExternalLink } from "lucide-react"
-import Image from "next/image";
+import Image from "next/image"
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState("all")
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation()
+  const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation({ threshold: 0.1 })
 
   const projects = [
     {
@@ -55,18 +58,40 @@ export default function Projects() {
     activeFilter === "all" ? projects : projects.filter((project) => project.category === activeFilter)
 
   return (
-    <section id="projects" className="py-20 bg-secondary/50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4">My Projects</h2>
-          <div className="h-1 w-20 bg-primary mx-auto mb-6"></div>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Here are some of my recent projects. Each one was built to solve a specific problem or explore new
-            technologies.
-          </p>
-        </div>
+    <section id="projects" className="relative py-20 bg-secondary/50 overflow-hidden">
+      {/* Animated background orbs */}
+      <div className="absolute top-10 right-20 h-64 w-64 rounded-full bg-primary/15 blur-3xl animate-pulse-gentle" />
+      <div className="absolute bottom-10 left-20 h-80 w-80 rounded-full bg-primary/15 blur-3xl animate-pulse-gentle" 
+           style={{ animationDelay: '1.5s' }} />
+      
+      <div className="container mx-auto px-6 md:px-16 relative">
 
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {/* ── Left: text ── */}
+          <div 
+            ref={headerRef}
+            className={`md:w-2/5 flex-shrink-0 mb-12 transition-all duration-700 ${
+              headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <span className="inline-block h-[2px] w-10 rounded-full bg-primary" />
+              <span className="text-primary text-xs font-semibold tracking-widest uppercase">
+                What I've Built
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-5">
+              My Projects
+            </h2>
+            <p className="text-muted-foreground text-base leading-relaxed">
+              Here are some of my recent projects. Each one was built to solve a specific problem or explore new technologies.
+            </p>
+          </div>
+
+        <div 
+          className={`flex flex-wrap justify-center gap-4 mb-12 transition-all duration-700 delay-200 ${
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
           {filters.map((filter) => (
             <Button
               key={filter.id}
@@ -78,7 +103,12 @@ export default function Projects() {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div 
+          ref={gridRef}
+          className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-700 delay-300 ${
+            gridVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
           {filteredProjects.map((project) => (
             <Card key={project.id} className="overflow-hidden group">
               <div className="relative overflow-hidden aspect-video">

@@ -8,10 +8,13 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react"
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation()
+  const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation({ threshold: 0.2 })
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -25,9 +28,19 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+    <section id="contact" className="relative py-20 overflow-hidden">
+      {/* Floating decorative elements */}
+      <div className="absolute top-20 left-10 h-48 w-48 rounded-full bg-primary/5 blur-3xl animate-float" />
+      <div className="absolute bottom-20 right-10 h-64 w-64 rounded-full bg-primary/5 blur-3xl animate-float" 
+           style={{ animationDelay: '1.5s' }} />
+      
+      <div className="container mx-auto px-6 md:px-16 relative">
+        <div 
+          ref={headerRef}
+          className={`text-center mb-16 transition-all duration-700 ${
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
           <div className="h-1 w-20 bg-primary mx-auto mb-6"></div>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -36,7 +49,12 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8 max-w-5xl mx-auto">
+        <div 
+          ref={cardsRef}
+          className={`flex flex-col md:flex-row gap-8 max-w-5xl mx-auto transition-all duration-700 delay-200 ${
+            cardsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <Card className="w-full md:w-auto">
             <CardContent className="p-6 flex flex-col gap-6">
               <div className="flex items-start gap-4">
