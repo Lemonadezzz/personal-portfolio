@@ -1,4 +1,8 @@
-import { Card, CardContent } from "@/components/ui/card"
+"use client"
+
+import { Button } from "@/components/ui/button"
+import { Briefcase, GraduationCap } from "lucide-react"
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 interface JobExperience {
   company: string
@@ -16,111 +20,222 @@ interface Education {
   logo: string
 }
 
+function TimelineItem({
+  logo,
+  title,
+  subtitle,
+  duration,
+  description,
+  isLast = false,
+}: {
+  logo: string
+  title: string
+  subtitle: string
+  duration: string
+  description: string
+  isLast?: boolean
+}) {
+  return (
+    <div className="relative flex gap-4">
+      {/* Vertical line */}
+      {!isLast && (
+        <div className="absolute left-5 top-12 bottom-0 w-px bg-border" />
+      )}
+
+      {/* Logo node */}
+      <div className="relative z-10 flex-shrink-0">
+        <div className="h-10 w-10 rounded-xl overflow-hidden border border-border bg-background shadow-sm">
+          <img
+            src={logo}
+            alt={subtitle}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className={`pb-8 ${isLast ? "" : ""}`}>
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 mb-1">
+          <h5 className="font-bold text-foreground text-sm leading-tight">{title}</h5>
+          <span className="text-xs text-muted-foreground">{duration}</span>
+        </div>
+        <p className="text-primary text-xs font-semibold mb-2 tracking-wide">{subtitle}</p>
+        <p className="text-muted-foreground text-sm leading-relaxed">{description}</p>
+      </div>
+    </div>
+  )
+}
+
 export default function About() {
   const experiences: JobExperience[] = [
     {
       company: "Target Display Co., Inc.",
-      position: "Full Stack Developer",
-      duration: "Sept 2023 - Present",
-      description: "Architected and developed enterprise-grade internal applications using Laravel and React (MUI) to replace legacy Excel-based workflows.",
-      logo: "/icons/tdci.png"
+      position: "IT Specialist",
+      duration: "Sept 2023 – Present",
+      description:
+        "Developed and maintained responsive web applications using React and Next.js. Collaborated with cross-functional teams to deliver high-quality solutions.",
+      logo: "/icons/tdci.png",
     },
     {
       company: "Freelance",
-      position: "Web Developer",
-      duration: "Jun 2023 - Nov 2024",
-      description: "Built custom web solutions for clients. Specializing in full-stack development with Next.js, and MongoDB",
-      logo: "/icons/code.png"
+      position: "Web Developer / Project Manager",
+      duration: "Jun 2023 – Nov 2024",
+      description:
+        "Built custom web solutions for clients, specializing in full-stack development with React, Next.js, and Node.js.",
+      logo: "/icons/code.png",
     },
     {
       company: "NMS Philippines",
       position: "Web Developer Internship",
-      duration: "Mar 2023 - May 2023",
-      description: "Developed and maintained responsive web applications using React and Next.js. Collaborated with cross-functional teams to deliver high-quality solutions.",
-      logo: "/icons/nms.png"
-    }
+      duration: "Mar 2023 – May 2023",
+      description:
+        "Developed and maintained responsive web applications using React and Next.js. Collaborated with cross-functional teams to deliver high-quality solutions.",
+      logo: "/icons/nms.png",
+    },
   ]
 
   const education: Education[] = [
     {
       school: "STI College Baguio",
       degree: "BS Information Technology",
-      duration: "Jul 2019 - Jul 2023",
-      description: "Maintained a consistent position on the Dean&apos;s List and demonstrated exceptional proficiency in both SQL and NoSQL databases.",
-      logo: "/icons/sti.png"
-    }
+      duration: "Jul 2019 – Jul 2023",
+      description:
+        "Maintained a consistent position on the Dean's List and demonstrated exceptional proficiency in both SQL and NoSQL databases.",
+      logo: "/icons/sti.png",
+    },
   ]
 
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation()
+  const { ref: bioRef, isVisible: bioVisible } = useScrollAnimation({ threshold: 0.2 })
+  const { ref: experienceRef, isVisible: experienceVisible } = useScrollAnimation({ threshold: 0.15 })
+
   return (
-    <section id="about" className="py-12 bg-secondary/50">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold mb-3">About Me</h2>
-          <div className="h-1 w-20 bg-primary mx-auto"></div>
+    <section id="about" className="relative py-24 bg-background overflow-hidden">
+      {/* Floating decorative elements - theme adaptive */}
+      <div className="absolute top-20 right-10 h-32 w-32 rounded-full bg-primary/15 blur-3xl animate-float" />
+      <div className="absolute bottom-20 left-10 h-40 w-40 rounded-full bg-primary/15 blur-3xl animate-float delay-500" 
+           style={{ animationDelay: '1s' }} />
+      
+      {/* Decorative grid pattern */}
+      <div className="absolute top-0 right-0 w-64 h-64 opacity-[0.07] pointer-events-none">
+        <div className="grid grid-cols-8 gap-3 h-full w-full">
+          {Array.from({ length: 64 }).map((_, i) => (
+            <div key={i} className="rounded-full bg-foreground" />
+          ))}
+        </div>
+      </div>
+
+      <div className="container mx-auto px-6 md:px-16 relative">
+
+        {/* Section header — mirrors hero eyebrow style */}
+        <div 
+          ref={headerRef}
+          className={`transition-all duration-700 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        >
+          <div className="flex items-center gap-3 mb-3">
+            <span className="inline-block h-[2px] w-10 rounded-full bg-primary" />
+            <span className="text-primary text-xs font-semibold tracking-widest uppercase">
+              Who I Am
+            </span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+            About Me
+          </h2>
         </div>
 
-        <div className="space-y-8">
+        {/* Bio */}
+        <p 
+          ref={bioRef}
+          className={`text-muted-foreground text-base leading-relaxed max-w-2xl mb-16 transition-all duration-700 delay-200 ${
+            bioVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
+          I&apos;m an IT Specialist and web developer based in the Philippines with a passion for building
+          clean, performant digital products. I bridge the gap between technical infrastructure and
+          modern frontend development — always looking to grow toward cloud engineering.
+        </p>
+
+        {/* Two-column timeline grid */}
+        <div 
+          ref={experienceRef}
+          className={`grid md:grid-cols-2 gap-x-16 gap-y-12 transition-all duration-700 delay-300 ${
+            experienceVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
+
+          {/* Work Experience column */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-center">Dev Experience</h3>
-            <div className="space-y-3">
-              {experiences.map((exp, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-4">
-                    <div className="flex gap-3 items-center">
-                      <div className="flex-shrink-0">
-                        <img
-                          src={exp.logo}
-                          alt={exp.company}
-                          className="h-10 w-10 rounded-lg object-cover bg-background"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex justify-between items-start gap-2">
-                          <div>
-                            <h5 className="font-bold text-sm">{exp.position}</h5>
-                            <p className="text-xs text-primary font-semibold">{exp.company}</p>
-                          </div>
-                          <span className="text-xs text-muted-foreground whitespace-nowrap flex-shrink-0">{exp.duration}</span>
-                        </div>
-                        <p className="text-xs text-muted-foreground mt-1">{exp.description}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+            <div className="flex items-center gap-2 mb-8">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+                <Briefcase className="h-4 w-4 text-primary" />
+              </div>
+              <h3 className="font-bold text-foreground text-lg">Work Experience</h3>
+            </div>
+
+            <div className="space-y-0">
+              {experiences.map((exp, i) => (
+                <TimelineItem
+                  key={i}
+                  logo={exp.logo}
+                  title={exp.position}
+                  subtitle={exp.company}
+                  duration={exp.duration}
+                  description={exp.description}
+                  isLast={i === experiences.length - 1}
+                />
               ))}
             </div>
           </div>
 
+          {/* Education + CTA column */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-center">Education</h3>
-            <div className="space-y-3">
-              {education.map((edu, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-4">
-                    <div className="flex gap-3 items-center">
-                      <div className="flex-shrink-0">
-                        <img
-                          src={edu.logo}
-                          alt={edu.school}
-                          className="h-10 w-10 rounded-lg object-cover bg-background"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex justify-between items-start gap-2">
-                          <div>
-                            <h5 className="font-bold text-sm">{edu.degree}</h5>
-                            <p className="text-xs text-primary font-semibold">{edu.school}</p>
-                          </div>
-                          <span className="text-xs text-muted-foreground whitespace-nowrap flex-shrink-0">{edu.duration}</span>
-                        </div>
-                        <p className="text-xs text-muted-foreground mt-1">{edu.description}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+            <div className="flex items-center gap-2 mb-8">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+                <GraduationCap className="h-4 w-4 text-primary" />
+              </div>
+              <h3 className="font-bold text-foreground text-lg">Education</h3>
+            </div>
+
+            <div className="space-y-0 mb-12">
+              {education.map((edu, i) => (
+                <TimelineItem
+                  key={i}
+                  logo={edu.logo}
+                  title={edu.degree}
+                  subtitle={edu.school}
+                  duration={edu.duration}
+                  description={edu.description}
+                  isLast
+                />
               ))}
             </div>
+
+            {/* Stat callouts */}
+            <div className="grid grid-cols-3 gap-4 mb-12">
+              {[
+                { value: "2+", label: "Years Experience" },
+                { value: "10+", label: "Projects Shipped" },
+                { value: "5+", label: "Happy Clients" },
+              ].map(({ value, label }) => (
+                <div
+                  key={label}
+                  className="rounded-xl border border-border bg-secondary/30 p-4 text-center"
+                >
+                  <p className="text-2xl font-bold text-primary mb-1">{value}</p>
+                  <p className="text-xs text-muted-foreground leading-tight">{label}</p>
+                </div>
+              ))}
+            </div>
+
+            <Button
+              asChild
+              size="lg"
+              className="transition-transform hover:-translate-y-0.5"
+            >
+              <a href="#contact">Let&apos;s Work Together</a>
+            </Button>
           </div>
+
         </div>
       </div>
     </section>
