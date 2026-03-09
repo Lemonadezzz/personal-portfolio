@@ -4,15 +4,14 @@ import { useEffect, useState } from "react"
 import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react"
 import Navbar from "./navbar"
 
+const titles = ["Fullstack Web Developer", "Aspiring Cloud Engineer", "Building Web & Cloud"]
+
 export default function Hero() {
   const [typedText, setTypedText] = useState("")
   const [isErasing, setIsErasing] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [mounted, setMounted] = useState(false)
   const [terminalLines, setTerminalLines] = useState(0)
-
-  // ── updated titles to reflect both roles
-  const titles = ["Fullstack Web Developer", "Aspiring Cloud Engineer", "Building Web & Cloud"]
 
   const webChips = ["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL"]
   const cloudChips = ["AWS EC2", "S3", "Lambda", "CloudFront"]
@@ -55,7 +54,7 @@ export default function Hero() {
     }
 
     return () => clearTimeout(timeout)
-  }, [typedText, isErasing, currentIndex, titles])
+  }, [typedText, isErasing, currentIndex])
 
   return (
     <section
@@ -427,7 +426,7 @@ export default function Hero() {
                     className="text-muted-foreground"
                     style={{ paddingLeft: "20px", fontSize: "0.62rem", letterSpacing: "0.08em", textTransform: "uppercase", opacity: 0.4, animation: "fadeSlideIn 0.25s ease" }}
                   >
-                    // web stack
+                    {/* web stack */}
                   </div>
                 )}
                 {terminalLines >= 5 && (
