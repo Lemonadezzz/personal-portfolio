@@ -70,7 +70,7 @@ export default function About() {
   const experiences: JobExperience[] = [
     {
       company: "Target Display Co., Inc.",
-      position: "Full Stack Developer",
+      position: "Web Developer",
       duration: "Sept 2023 – Present",
       description:
         "Identified systemic inefficiencies in legacy Excel-based workflows to architect and develop custom, full-stack internal applications using Laravel, React, and MUI.",

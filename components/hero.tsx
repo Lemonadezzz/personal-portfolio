@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { ArrowDown, Github, Linkedin, BadgeCheck } from "lucide-react"
 import Navbar from "./navbar"
 
-const titles = ["Fullstack Web Developer", "Aspiring Cloud Engineer", "Building Web & Cloud"]
+const titles = ["Web Developer", "Learning Cloud"]
 
 export default function Hero() {
   const [typedText, setTypedText] = useState("")
@@ -217,9 +217,7 @@ export default function Hero() {
                 transition: "opacity 0.7s ease 0.4s",
               }}
             >
-              I ship <strong className="text-foreground font-semibold">clean, responsive web apps</strong> and
-              the infrastructure behind them. Bridging polished frontends with scalable cloud systems —
-              one deploy at a time.
+              Full-stack developer building <strong className="text-foreground font-semibold">scalable web applications</strong> with Laravel, React, and modern cloud infrastructure.
             </p>
 
             {/* ── new: GCP status badge ── */}
@@ -251,7 +249,7 @@ export default function Hero() {
                   animation: "pulseDot 2s ease-in-out infinite",
                 }}
               />
-              Currently: Google Cloud Platform - Associate Cloud Engineer track
+              Currently: Learning Google Cloud Platform - Associate Cloud Engineer
             </div>
 
             {/* CTA Buttons — "Download Resume" → "See My Stack →" */}
@@ -286,7 +284,9 @@ export default function Hero() {
                 View My Work
               </a>
               <a
-                href="#skills"
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-foreground"
                 style={{
                   display: "inline-flex",
@@ -310,7 +310,7 @@ export default function Hero() {
                   ;(e.currentTarget as HTMLElement).style.transform = "translateY(0)"
                 }}
               >
-                See My Stack →
+                View Resume
               </a>
             </div>
 
@@ -418,7 +418,7 @@ export default function Hero() {
                 )}
                 {terminalLines >= 3 && (
                   <div className="text-muted-foreground" style={{ paddingLeft: "20px", animation: "fadeSlideIn 0.25s ease" }}>
-                    role: <span style={{ color: "#dc3545" }}>Fullstack Web Developer</span>
+                    role: <span style={{ color: "#dc3545" }}>Web Developer</span>
                   </div>
                 )}
                 {terminalLines >= 4 && (
@@ -456,7 +456,7 @@ export default function Hero() {
                 )}
                 {terminalLines >= 8 && (
                   <div className="text-muted-foreground" style={{ paddingLeft: "20px", animation: "fadeSlideIn 0.25s ease" }}>
-                    goal: <span style={{ color: "#dc3545" }}>Aspiring Cloud Engineer</span>
+                    goal: <span style={{ color: "#dc3545" }}> DevOps/Cloud Engineer</span>
                   </div>
                 )}
                 {terminalLines >= 8 && (
@@ -491,7 +491,7 @@ export default function Hero() {
                 )}
                 {terminalLines >= 10 && (
                   <div className="text-muted-foreground" style={{ paddingLeft: "20px", animation: "fadeSlideIn 0.25s ease" }}>
-                    → <span style={{ color: "#86efac" }}>looking for software engineer position</span>{" "}
+                    → <span style={{ color: "#86efac" }}>looking for a dev position</span>{" "}
                     <span style={{ color: "#4ade80", fontSize: "0.7rem" }}>●</span>
                   </div>
                 )}
