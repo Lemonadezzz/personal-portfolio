@@ -59,6 +59,19 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Scroll snapping for desktop only */
+  @media (min-width: 768px) {
+    html {
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+    }
+    section {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      height: 100vh;
+    }
+  }
 }
 
 /* ============================================

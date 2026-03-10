@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react"
+import { ArrowDown, Github, Linkedin, BadgeCheck } from "lucide-react"
 import Navbar from "./navbar"
 
 const titles = ["Fullstack Web Developer", "Aspiring Cloud Engineer", "Building Web & Cloud"]
@@ -13,8 +13,8 @@ export default function Hero() {
   const [mounted, setMounted] = useState(false)
   const [terminalLines, setTerminalLines] = useState(0)
 
-  const webChips = ["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL"]
-  const cloudChips = ["AWS EC2", "S3", "Lambda", "CloudFront"]
+  const webChips = ["Laravel", "React", "Next.js", "MongoDB", "SQL"]
+  const cloudChips = ["Compute Engine", "VPC", "Google Kubernetes Engine", "Cloudrun"]
 
   useEffect(() => {
     setMounted(true)
@@ -222,7 +222,7 @@ export default function Hero() {
               one deploy at a time.
             </p>
 
-            {/* ── new: AWS status badge ── */}
+            {/* ── new: GCP status badge ── */}
             <div
               style={{
                 display: "inline-flex",
@@ -251,7 +251,7 @@ export default function Hero() {
                   animation: "pulseDot 2s ease-in-out infinite",
                 }}
               />
-              Currently: AWS Solutions Architect track — SAA-C03
+              Currently: Google Cloud Platform - Associate Cloud Engineer track
             </div>
 
             {/* CTA Buttons — "Download Resume" → "See My Stack →" */}
@@ -322,7 +322,7 @@ export default function Hero() {
               {[
                 { href: "https://github.com/Lemonadezzz", label: "GitHub", icon: <Github className="h-5 w-5" /> },
                 { href: "https://linkedin.com/in/ramirezadrianfrancis", label: "LinkedIn", icon: <Linkedin className="h-5 w-5" /> },
-                { href: "https://x.com/lemonaidssssss", label: "Twitter", icon: <Twitter className="h-5 w-5" /> },
+                { href: "https://www.credly.com/users/ramirezadrianfrancis", label: "Credly", icon: <BadgeCheck className="h-5 w-5" /> },
               ].map(({ href, label, icon }) => (
                 <a
                   key={label}
@@ -461,7 +461,7 @@ export default function Hero() {
                 )}
                 {terminalLines >= 8 && (
                   <div className="text-muted-foreground" style={{ paddingLeft: "20px", animation: "fadeSlideIn 0.25s ease" }}>
-                    track: <span style={{ color: "#86efac" }}>AWS SAA-C03</span>
+                    track: <span style={{ color: "#86efac" }}>GCP ACE</span>
                   </div>
                 )}
                 {terminalLines >= 9 && (
@@ -491,7 +491,7 @@ export default function Hero() {
                 )}
                 {terminalLines >= 10 && (
                   <div className="text-muted-foreground" style={{ paddingLeft: "20px", animation: "fadeSlideIn 0.25s ease" }}>
-                    → <span style={{ color: "#86efac" }}>open for freelance projects</span>{" "}
+                    → <span style={{ color: "#86efac" }}>looking for software engineer position</span>{" "}
                     <span style={{ color: "#4ade80", fontSize: "0.7rem" }}>●</span>
                   </div>
                 )}

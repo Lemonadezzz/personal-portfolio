@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Github, ExternalLink } from "lucide-react"
@@ -9,7 +8,6 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 
 export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState("all")
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation()
   const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation({ threshold: 0.1 })
 
@@ -20,7 +18,6 @@ export default function Projects() {
       description:
         "An Agile Based Project Management System.",
       image: "/project1.svg?height=600&width=800",
-      category: "fullstack",
       technologies: ["Laravel", "React", "SQL", "Docker"],
       githubUrl: "https://github.com",
       liveUrl: "https://example.com",
@@ -30,7 +27,6 @@ export default function Projects() {
       title: "obeliskv2",
       description: "A time management app.",
       image: "/project2.svg?height=600&width=800",
-      category: "fullstack",
       technologies: ["Next.js", "MongoDB ", "Vercel"],
       githubUrl: "https://github.com",
       liveUrl: "https://obeliskv2.vercel.app",
@@ -40,25 +36,14 @@ export default function Projects() {
       title: "ITAMS",
       description: "An IT Asset Management System.",
       image: "/project3.svg?height=600&width=800",
-      category: "fullstack",
       technologies: ["Laravel", "React", "SQL", "Docker"],
       githubUrl: "https://github.com",
       liveUrl: "https://example.com",
     }
   ]
 
-  const filters = [
-    { id: "all", label: "All Projects" },
-    { id: "frontend", label: "Frontend" },
-    { id: "backend", label: "Backend" },
-    { id: "fullstack", label: "Full Stack" },
-  ]
-
-  const filteredProjects =
-    activeFilter === "all" ? projects : projects.filter((project) => project.category === activeFilter)
-
   return (
-    <section id="projects" className="relative py-20 bg-secondary/50 overflow-hidden">
+    <section id="projects" className="relative min-h-screen flex items-center justify-center bg-secondary/50 overflow-hidden">
       {/* Animated background orbs */}
       <div className="absolute top-10 right-20 h-64 w-64 rounded-full bg-primary/15 blur-3xl animate-pulse-gentle" />
       <div className="absolute bottom-10 left-20 h-80 w-80 rounded-full bg-primary/15 blur-3xl animate-pulse-gentle" 
@@ -88,28 +73,12 @@ export default function Projects() {
           </div>
 
         <div 
-          className={`flex flex-wrap justify-center gap-4 mb-12 transition-all duration-700 delay-200 ${
-            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-        >
-          {filters.map((filter) => (
-            <Button
-              key={filter.id}
-              variant={activeFilter === filter.id ? "default" : "outline"}
-              onClick={() => setActiveFilter(filter.id)}
-            >
-              {filter.label}
-            </Button>
-          ))}
-        </div>
-
-        <div 
           ref={gridRef}
           className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-700 delay-300 ${
             gridVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          {filteredProjects.map((project) => (
+          {projects.map((project) => (
             <Card key={project.id} className="overflow-hidden group">
               <div className="relative overflow-hidden aspect-video">
                 <Image

@@ -28,7 +28,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="relative py-20 overflow-hidden">
+    <section id="contact" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Floating decorative elements */}
       <div className="absolute top-20 left-10 h-48 w-48 rounded-full bg-primary/5 blur-3xl animate-float" />
       <div className="absolute bottom-20 right-10 h-64 w-64 rounded-full bg-primary/5 blur-3xl animate-float" 
@@ -174,6 +174,13 @@ export default function Contact() {
               )}
             </CardContent>
           </Card>
+        </div>
+
+        {/* Copyright notice */}
+        <div className="text-center mt-16 pb-20">
+          <p className="text-xs text-muted-foreground">
+            © 2026 All rights reserved Adrian Ramirez
+          </p>
         </div>
       </div>
     </section>
