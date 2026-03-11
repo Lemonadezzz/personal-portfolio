@@ -2,6 +2,7 @@
 
 import type React from "react"
 
+import emailjs from '@emailjs/browser'
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -16,16 +17,46 @@ export default function Contact() {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation()
   const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation({ threshold: 0.2 })
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault()
+  setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+  try {
+    const formData = new FormData(e.currentTarget)
+    
+    // Email 1: Send user's message to you
+    await emailjs.send(
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!, // Your main template
+      {
+        user_name: formData.get('user_name'),
+        user_email: formData.get('user_email'),
+        subject: formData.get('user_subject'),
+        message: formData.get('user_message'),
+      },
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+    )
 
-    setIsSubmitting(false)
+    // Email 2: Send auto-reply to user
+    await emailjs.send(
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+      process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID!, // Auto-reply template
+      {
+        user_name: formData.get('user_name'),
+        user_email: formData.get('user_email'),
+      },
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+    )
+    
+    console.log('Emails sent successfully')
     setIsSubmitted(true)
+  } catch (error) {
+    console.error('Email send failed:', error)
+  } finally {
+    setIsSubmitting(false)
   }
+}
+
 
   return (
     <section id="contact" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-24">
@@ -64,7 +95,7 @@ export default function Contact() {
                 <div className="flex-1 overflow-hidden">
                   <h3 className="font-bold">Email</h3>
                   <a
-                    href="mailto:hello@example.com"
+                    href="mailto:ramirezadrianfrancis@gmail.com"
                     className="text-muted-foreground hover:text-primary transition-colors text-sm block overflow-wrap break-word"
                   >
                     ramirezadrianfrancis@gmail.com
@@ -78,7 +109,7 @@ export default function Contact() {
                 </div>
                 <div className="flex-1 overflow-hidden">
                   <h3 className="font-bold">Phone</h3>
-                  <a href="tel:+1234567890" className="text-muted-foreground hover:text-primary transition-colors text-sm block overflow-wrap break-word">
+                  <a href="tel:+639663689364" className="text-muted-foreground hover:text-primary transition-colors text-sm block overflow-wrap break-word">
                     (+63) 966 368 9364
                   </a>
                 </div>
@@ -114,13 +145,13 @@ export default function Contact() {
                       <label htmlFor="name" className="text-sm font-medium">
                         Name
                       </label>
-                      <Input id="name" placeholder="Your name" required />
+                      <Input id="name" name="user_name" placeholder="Your name" required />
                     </div>
                     <div className="space-y-2">
                       <label htmlFor="email" className="text-sm font-medium">
                         Email
                       </label>
-                      <Input id="email" type="email" placeholder="Your email" required />
+                      <Input id="email" name="user_email" type="email" placeholder="Your email" required />
                     </div>
                   </div>
 
@@ -128,14 +159,14 @@ export default function Contact() {
                     <label htmlFor="subject" className="text-sm font-medium">
                       Subject
                     </label>
-                    <Input id="subject" placeholder="Subject of your message" required />
+                    <Input id="subject" placeholder="Subject of your message" name="user_subject" required />
                   </div>
 
                   <div className="space-y-2">
                     <label htmlFor="message" className="text-sm font-medium">
                       Message
                     </label>
-                    <Textarea id="message" placeholder="Your message" rows={6} required />
+                    <Textarea id="message" placeholder="Your message" name="user_message" rows={6} required />
                   </div>
 
                   <Button type="submit" className="w-full" disabled={isSubmitting}>
