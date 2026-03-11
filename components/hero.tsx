@@ -59,7 +59,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-background"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-background pb-16 md:pb-24"
     >
       {/* ── existing background orbs ── */}
       <div
@@ -403,7 +403,7 @@ export default function Hero() {
               </div>
 
               {/* Terminal body */}
-              <div style={{ padding: "18px 22px", lineHeight: 2.0 }}>
+              <div style={{ padding: "18px 22px 24px 22px", lineHeight: 2.0 }}>
 
                 {terminalLines >= 1 && (
                   <div style={{ display: "flex", gap: "8px", animation: "fadeSlideIn 0.25s ease" }}>
