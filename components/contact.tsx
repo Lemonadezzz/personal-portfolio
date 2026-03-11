@@ -31,8 +31,8 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       {
         user_name: formData.get('user_name'),
         user_email: formData.get('user_email'),
-        subject: formData.get('subject'),
-        message: formData.get('message'),
+        subject: formData.get('title'),
+        message: formData.get('body'),
       },
       process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
     )
@@ -159,14 +159,14 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                     <label htmlFor="subject" className="text-sm font-medium">
                       Subject
                     </label>
-                    <Input id="subject" name="subject" placeholder="Subject of your message"  required />
+                    <Input id="subject" name="title" placeholder="Subject of your message"  required />
                   </div>
 
                   <div className="space-y-2">
                     <label htmlFor="message" className="text-sm font-medium">
                       Message
                     </label>
-                    <Textarea id="message" name="message" placeholder="Your message"  rows={6} required />
+                    <Textarea id="message" name="body" placeholder="Your message"  rows={6} required />
                   </div>
 
                   <Button type="submit" className="w-full" disabled={isSubmitting}>
