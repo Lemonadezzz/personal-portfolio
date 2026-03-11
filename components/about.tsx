@@ -110,7 +110,7 @@ export default function About() {
   const { ref: experienceRef, isVisible: experienceVisible } = useScrollAnimation({ threshold: 0.15 })
 
   return (
-    <section id="about" className="relative min-h-screen flex items-center justify-center bg-background overflow-hidden">
+    <section id="about" className="relative min-h-screen flex items-center justify-center bg-background overflow-hidden py-16 md:py-24">
       {/* Floating decorative elements - theme adaptive */}
       <div className="absolute top-20 right-10 h-32 w-32 rounded-full bg-primary/15 blur-3xl animate-float" />
       <div className="absolute bottom-20 left-10 h-40 w-40 rounded-full bg-primary/15 blur-3xl animate-float delay-500" 

@@ -43,7 +43,7 @@ export default function Projects() {
   ]
 
   return (
-    <section id="projects" className="relative min-h-screen flex items-center justify-center bg-secondary/50 overflow-hidden">
+    <section id="projects" className="relative min-h-screen flex items-center justify-center bg-secondary/50 overflow-hidden py-16 md:py-24">
       {/* Animated background orbs */}
       <div className="absolute top-10 right-20 h-64 w-64 rounded-full bg-primary/15 blur-3xl animate-pulse-gentle" />
       <div className="absolute bottom-10 left-20 h-80 w-80 rounded-full bg-primary/15 blur-3xl animate-pulse-gentle" 

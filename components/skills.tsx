@@ -67,7 +67,7 @@ export default function Skills() {
   const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation({ threshold: 0.2 })
 
   return (
-    <section id="skills" className="relative min-h-screen flex items-center justify-center bg-background overflow-hidden">
+    <section id="skills" className="relative min-h-screen flex items-center justify-center bg-background overflow-hidden py-16 md:py-24">
       <div className="absolute top-1/4 left-0 h-72 w-72 rounded-full bg-primary/15 blur-3xl animate-pulse-gentle" />
       <div className="absolute bottom-1/4 right-0 h-96 w-96 rounded-full bg-primary/15 blur-3xl animate-pulse-gentle" 
            style={{ animationDelay: '1s' }} />

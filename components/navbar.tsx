@@ -68,8 +68,8 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Scrollspy navigation - upper right */}
-      <nav className="fixed top-24 right-6 z-50 flex flex-col gap-4">
+      {/* Scrollspy navigation - responsive */}
+      <nav className="fixed top-1/2 -translate-y-1/2 right-6 z-50 hidden md:flex flex-col gap-4">
         {navLinks.map((link) => {
           const sectionId = link.href.substring(1)
           const isActive = activeSection === sectionId
@@ -95,6 +95,44 @@ export default function Navbar() {
             </Link>
           )
         })}
+      </nav>
+
+      {/* Mobile scrollspy - vertical line with indicators */}
+      <nav className="fixed top-1/2 -translate-y-1/2 right-4 z-50 md:hidden">
+        <div className="relative">
+          {/* Vertical line */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-border" />
+          
+          {/* Indicators */}
+          <div className="flex flex-col gap-6">
+            {navLinks.map((link) => {
+              const sectionId = link.href.substring(1)
+              const isActive = activeSection === sectionId
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="relative group"
+                  title={link.name}
+                >
+                  <div
+                    className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
+                      isActive 
+                        ? "bg-primary border-primary scale-125" 
+                        : "bg-background border-border group-hover:border-primary group-hover:scale-110"
+                    }`}
+                  />
+                  {/* Active section label */}
+                  {isActive && (
+                    <span className="absolute right-6 top-1/2 -translate-y-1/2 text-xs font-medium text-primary whitespace-nowrap animate-fade-in">
+                      {link.name}
+                    </span>
+                  )}
+                </Link>
+              )
+            })}
+          </div>
+        </div>
       </nav>
 
       {/* Back to top button - shows at contact section */}
