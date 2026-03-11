@@ -26,26 +26,26 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     
     // Email 1: Send user's message to you
     await emailjs.send(
-      process.env.EMAILJS_SERVICE_ID!,
-      process.env.EMAILJS_TEMPLATE_ID!, // Your main template
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!, // Your main template
       {
         user_name: formData.get('user_name'),
         user_email: formData.get('user_email'),
         subject: formData.get('user_subject'),
         message: formData.get('user_message'),
       },
-      process.env.EMAILJS_PUBLIC_KEY!
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
     )
 
     // Email 2: Send auto-reply to user
     await emailjs.send(
-      process.env.EMAILJS_SERVICE_ID!,
-      process.env.EMAILJS_AUTOREPLY_TEMPLATE_ID!, // Auto-reply template
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+      process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID!, // Auto-reply template
       {
         user_name: formData.get('user_name'),
         user_email: formData.get('user_email'),
       },
-      process.env.EMAILJS_PUBLIC_KEY!
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
     )
     
     console.log('Emails sent successfully')
