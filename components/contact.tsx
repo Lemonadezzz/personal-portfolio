@@ -22,34 +22,15 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   setIsSubmitting(true)
 
   try {
-    const formData = new FormData(e.currentTarget)
-    
-    // Email 1: Send user's message to you
-    await emailjs.send(
+    // Send user's message to you (EmailJS will handle auto-reply)
+    await emailjs.sendForm(
       process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!, // Your main template
-      {
-        user_name: formData.get('user_name'),
-        user_email: formData.get('user_email'),
-        title: formData.get('title'),
-        body: formData.get('body'),
-      },
-      
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+      e.currentTarget,
       process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
     )
     
-    // Email 2: Send auto-reply to user
-    await emailjs.send(
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-      process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID!, // Auto-reply template
-      {
-        user_name: formData.get('user_name'),
-        user_email: formData.get('user_email'),
-      },
-      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-    )
-    
-    console.log('Emails sent successfully')
+    console.log('Email sent successfully')
     setIsSubmitted(true)
   } catch (error) {
     console.error('Email send failed:', error)
