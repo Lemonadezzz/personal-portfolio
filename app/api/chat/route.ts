@@ -118,11 +118,13 @@ export async function POST(request: NextRequest) {
     const text = response.text()
 
     return NextResponse.json({ response: text })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error generating AI response:', error)
-    console.error('Error details:', error.message, error.stack)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorStack = error instanceof Error ? error.stack : undefined
+    console.error('Error details:', errorMessage, errorStack)
     return NextResponse.json(
-      { error: `Failed to generate response: ${error.message}` },
+      { error: `Failed to generate response: ${errorMessage}` },
       { status: 500 }
     )
   }
