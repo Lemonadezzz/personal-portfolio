@@ -4,12 +4,14 @@ import { useState, useRef, useEffect } from "react"
 import { MessageCircle, X, Send, Bot, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import ReactMarkdown from "react-markdown"
 
 interface Message {
   id: string
   content: string
   sender: 'user' | 'bot'
   timestamp: Date
+  isTyping?: boolean
 }
 
 export default function Chatbot() {
@@ -65,15 +67,53 @@ export default function Chatbot() {
         throw new Error(data.error || 'Failed to get response')
       }
 
+      setIsTyping(false)
+
+      // Create bot message with typing animation
+      const botMessageId = (Date.now() + 1).toString()
+      const fullText = data.response
+      
+      // Add empty bot message first
       const botMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: data.response,
+        id: botMessageId,
+        content: '',
         sender: 'bot',
-        timestamp: new Date()
+        timestamp: new Date(),
+        isTyping: true
       }
       setMessages(prev => [...prev, botMessage])
+
+      // Animate typing effect
+      let currentIndex = 0
+      const typingSpeed = 20 // milliseconds per character
+
+      const typeInterval = setInterval(() => {
+        currentIndex++
+        
+        if (currentIndex <= fullText.length) {
+          setMessages(prev => 
+            prev.map(msg => 
+              msg.id === botMessageId 
+                ? { ...msg, content: fullText.slice(0, currentIndex) }
+                : msg
+            )
+          )
+        } else {
+          // Typing complete
+          setMessages(prev => 
+            prev.map(msg => 
+              msg.id === botMessageId 
+                ? { ...msg, isTyping: false }
+                : msg
+            )
+          )
+          clearInterval(typeInterval)
+        }
+      }, typingSpeed)
+
     } catch (error) {
       console.error('AI Error:', error)
+      setIsTyping(false)
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: "I'm sorry, I'm having trouble connecting right now. Please try again later or contact Adrian directly.",
@@ -81,8 +121,6 @@ export default function Chatbot() {
         timestamp: new Date()
       }
       setMessages(prev => [...prev, errorMessage])
-    } finally {
-      setIsTyping(false)
     }
   }
 
@@ -108,15 +146,15 @@ export default function Chatbot() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-80 h-96 bg-background border border-border rounded-lg shadow-2xl flex flex-col animate-fade-in-up">
+        <div className="fixed bottom-6 right-6 z-50 w-96 h-[600px] bg-background border border-border rounded-lg shadow-2xl flex flex-col animate-fade-in-up">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-border bg-primary/5 rounded-t-lg">
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                <Bot className="h-4 w-4 text-primary" />
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                <Bot className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <h3 className="font-semibold text-sm">AI Assistant</h3>
+                <h3 className="font-semibold text-base">AI Assistant</h3>
                 <p className="text-xs text-muted-foreground">Ask me about Adrian</p>
               </div>
             </div>
@@ -124,36 +162,68 @@ export default function Chatbot() {
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(false)}
-              className="h-8 w-8"
+              className="h-9 w-9"
             >
-              <X className="h-4 w-4" />
+              <X className="h-5 w-5" />
             </Button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div className="flex-1 overflow-y-auto p-5 space-y-4">
             {messages.map((message) => (
               <div
                 key={message.id}
                 className={`flex gap-2 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {message.sender === 'bot' && (
-                  <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
-                    <Bot className="h-3 w-3 text-primary" />
+                  <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                    <Bot className="h-4 w-4 text-primary" />
                   </div>
                 )}
                 <div
-                  className={`max-w-[70%] rounded-lg px-3 py-2 text-sm ${
+                  className={`max-w-[75%] rounded-lg px-4 py-3 text-sm leading-relaxed break-words overflow-wrap-anywhere ${
                     message.sender === 'user'
                       ? 'bg-primary text-primary-foreground'
                       : 'bg-secondary text-secondary-foreground'
                   }`}
                 >
-                  {message.content}
+                  {message.sender === 'bot' ? (
+                    <div className="prose prose-sm max-w-none dark:prose-invert">
+                      <ReactMarkdown
+                        components={{
+                          p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                          strong: ({ children }) => <strong className="font-bold text-foreground">{children}</strong>,
+                          a: ({ href, children }) => (
+                            <a 
+                              href={href} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-primary hover:underline break-all"
+                            >
+                              {children}
+                            </a>
+                          ),
+                          ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1">{children}</ol>,
+                          ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
+                          li: ({ children }) => <li className="ml-2">{children}</li>,
+                          code: ({ children }) => (
+                            <code className="bg-muted px-1 py-0.5 rounded text-xs break-all">{children}</code>
+                          ),
+                        }}
+                      >
+                        {message.content}
+                      </ReactMarkdown>
+                    </div>
+                  ) : (
+                    <span className="break-words">{message.content}</span>
+                  )}
+                  {message.isTyping && (
+                    <span className="inline-block w-[2px] h-4 bg-current ml-1 animate-blink" />
+                  )}
                 </div>
                 {message.sender === 'user' && (
-                  <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
-                    <User className="h-3 w-3 text-primary" />
+                  <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                    <User className="h-4 w-4 text-primary" />
                   </div>
                 )}
               </div>
@@ -162,10 +232,10 @@ export default function Chatbot() {
             {/* Typing indicator */}
             {isTyping && (
               <div className="flex gap-2 justify-start">
-                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
-                  <Bot className="h-3 w-3 text-primary" />
+                <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                  <Bot className="h-4 w-4 text-primary" />
                 </div>
-                <div className="bg-secondary text-secondary-foreground rounded-lg px-3 py-2 text-sm">
+                <div className="bg-secondary text-secondary-foreground rounded-lg px-4 py-3 text-sm">
                   <div className="flex gap-1">
                     <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                     <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -178,23 +248,23 @@ export default function Chatbot() {
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t border-border">
-            <div className="flex gap-2">
+          <div className="p-5 border-t border-border">
+            <div className="flex gap-3">
               <Input
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask me anything about Adrian..."
-                className="flex-1 text-sm"
+                className="flex-1 text-sm h-11"
                 disabled={isTyping}
               />
               <Button
                 onClick={handleSendMessage}
                 size="icon"
                 disabled={!inputValue.trim() || isTyping}
-                className="h-9 w-9"
+                className="h-11 w-11"
               >
-                <Send className="h-4 w-4" />
+                <Send className="h-5 w-5" />
               </Button>
             </div>
           </div>

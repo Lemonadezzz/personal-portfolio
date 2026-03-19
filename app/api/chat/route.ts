@@ -135,26 +135,41 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" })
-    
-    const chat = model.startChat({
-      history: [
-        {
-          role: "user",
-          parts: [{ text: SYSTEM_PROMPT }],
-        },
-        {
-          role: "model",
-          parts: [{ text: "I understand. I'm Adrian Ramirez's AI assistant and I'll only answer questions about his professional background, skills, experience, and projects. How can I help you learn more about Adrian?" }],
-        },
-      ],
-    })
+    // Try models in order of preference
+    const models = ['gemini-3-flash-preview', 'gemini-2.5-flash-lite', 'gemini-2.5-flash']
+    let lastError: Error | null = null
 
-    const result = await chat.sendMessage(message)
-    const response = await result.response
-    const text = response.text()
+    for (const modelName of models) {
+      try {
+        const model = genAI.getGenerativeModel({ model: modelName })
+        
+        const chat = model.startChat({
+          history: [
+            {
+              role: "user",
+              parts: [{ text: SYSTEM_PROMPT }],
+            },
+            {
+              role: "model",
+              parts: [{ text: "I understand. I'm Adrian Ramirez's AI assistant and I'll only answer questions about his professional background, skills, experience, and projects. How can I help you learn more about Adrian?" }],
+            },
+          ],
+        })
 
-    return NextResponse.json({ response: text })
+        const result = await chat.sendMessage(message)
+        const response = await result.response
+        const text = response.text()
+
+        return NextResponse.json({ response: text })
+      } catch (error) {
+        console.warn(`Model ${modelName} failed, trying next...`, error)
+        lastError = error instanceof Error ? error : new Error('Unknown error')
+        continue
+      }
+    }
+
+    // If all models failed, throw the last error
+    throw lastError || new Error('All models failed')
   } catch (error: unknown) {
     console.error('Error generating AI response:', error)
     const errorMessage = error instanceof Error ? error.message : 'Unknown error'
