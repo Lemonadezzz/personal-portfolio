@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Briefcase, GraduationCap } from "lucide-react"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import Image from "next/image"
 
 interface JobExperience {
   company: string
@@ -45,9 +46,11 @@ function TimelineItem({
       {/* Logo node */}
       <div className="relative z-10 flex-shrink-0">
         <div className="h-10 w-10 rounded-xl overflow-hidden border border-border bg-background shadow-sm">
-          <img
+          <Image
             src={logo}
             alt={subtitle}
+            width={40}
+            height={40}
             className="h-full w-full object-cover"
           />
         </div>

@@ -4,15 +4,16 @@ import Image from "next/image"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 const coreStack = [
+  { name: "Next.js", icon: "/icons/nextjs.png" },
+  { name: "MongoDB", icon: "/icons/mongodb.png" },
   { name: "Laravel", icon: "/icons/laravel.png" },
   { name: "React", icon: "/icons/react.png" },
   { name: "Material UI", icon: "/icons/material.png" },
-  { name: "Next.js", icon: "/icons/nextjs.png" },
-  { name: "MongoDB", icon: "/icons/mongodb.png" },
 ]
 
 const engineeringWorkflow = [
   { name: "Antigravity", icon: "/icons/antigravity.png" },
+  { name: "Claude", icon: "/icons/claude.png" },
   { name: "VS Code", icon: "/icons/vscode.png" },
   { name: "Git", icon: "/icons/git.png" },
   { name: "Docker", icon: "/icons/docker.png" },
@@ -20,9 +21,10 @@ const engineeringWorkflow = [
 
 const currentlyExploring = [
   { name: "Go", icon: "/icons/go.png" },
-  { name: "Google Cloud", icon: "/icons/gcloud.png" },
   { name: "Kubernetes", icon: "/icons/kubernetes.png" },
   { name: "Terraform", icon: "/icons/terraform.png" },
+  { name: "Vertex AI", icon: "/icons/vertex.png" },
+  { name: "Google Cloud", icon: "/icons/gcloud.png" },
 ]
 
 function SkillCard({ skill, index }: { skill: { name: string; icon: string }; index: number }) {

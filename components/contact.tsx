@@ -138,17 +138,17 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="title" className="text-sm font-medium">
+                    <label htmlFor="subject" className="text-sm font-medium">
                       Subject
                     </label>
-                    <Input id="title" name="title" placeholder="Subject of your message"  required />
+                    <Input id="subject" name="subject" placeholder="Subject of your message"  required />
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="body" className="text-sm font-medium">
+                    <label htmlFor="message" className="text-sm font-medium">
                       Message
                     </label>
-                    <Textarea id="body" name="body" placeholder="Your message"  rows={6} required />
+                    <Textarea id="message" name="message" placeholder="Your message"  rows={6} required />
                   </div>
 
                   <Button type="submit" className="w-full" disabled={isSubmitting}>

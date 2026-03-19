@@ -1,6 +1,7 @@
 import type React from "react"
 import "@/app/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import Chatbot from "@/components/chatbot"
 
 export const metadata = {
   title: "Adrian's Portfolio",
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
+          <Chatbot />
         </ThemeProvider>
       </body>
     </html>
